@@ -39,7 +39,7 @@ module.exports = function(grunt) {
         },
         watch: {
             configFiles: {
-                files: ['Gruntfile.js', 'package.json', './config/webpac.config.js'],
+                files: ['Gruntfile.js', 'package.json', './config/webpack.config.js'],
                 options: {
                     reload: true
                 },
