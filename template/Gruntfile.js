@@ -1,4 +1,5 @@
 const pkg = require('./package.json')
+const webpackConfig = require('./config/webpack.config')
 
 module.exports = function(grunt) {
     require('jit-grunt')(grunt)
@@ -27,21 +28,22 @@ module.exports = function(grunt) {
                 src: 'static/css/*.css'
             }
         },
-        concat: {
-            js: {
-                files: {
-                    'static/js/main.js': [
-                        'assets/scripts/main.js',
-                    ],
-                },
+        webpack: {
+            options: {
+                stats: !grunt.option('env') || grunt.option('env') === 'dev'
             },
+            prod: webpackConfig,
+            dev: Object.assign({
+                watch: true
+            }, webpackConfig)
         },
         watch: {
             configFiles: {
-                files: ['Gruntfile.js', 'package.json'],
+                files: ['Gruntfile.js', 'package.json', './config/webpac.config.js'],
                 options: {
                     reload: true
-                }
+                },
+                tasks: ['default'],
             },
             styles: {
                 files: [
@@ -80,7 +82,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('styles', ['less'])
 
-    grunt.registerTask('scripts', ['concat'])
+    grunt.registerTask('scripts', ['webpack'])
 
     grunt.registerTask('default', ['styles', 'scripts', 'browserSync', 'watch'])
 
