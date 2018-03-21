@@ -19,7 +19,7 @@ module.exports = function(grunt) {
                 },
                 processors: [
                     require('autoprefixer')({
-                        browsers: pkg.broeserslist
+                        browsers: pkg.browserslist
                     }),
                     require('cssnano')()
                 ]
